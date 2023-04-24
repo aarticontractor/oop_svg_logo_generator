@@ -5,6 +5,12 @@ let questions = [{
     type: 'input',
     message: 'Enter any text (max 3 characters):',
     name: 'text',
+    validate: function(input) {
+        if (input.length > 3) {
+            return 'Logo text length cannot be greater than 3 characters'
+        }
+        return true;
+    }
 },
 {
     type: 'input',
