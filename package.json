@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/aarticontractor/oop_svg_logo_generator/issues"
   },
-  "homepage": "https://github.com/aarticontractor/oop_svg_logo_generator#readme"
+  "homepage": "https://github.com/aarticontractor/oop_svg_logo_generator#readme",
+  "dependencies": {
+    "inquirer": "^8.2.4"
+  }
 }
