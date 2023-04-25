@@ -1,34 +1,38 @@
 const inquirer = require("inquirer");
-const { Circle, Square, Triangle } = require("./lib/shapes.js");
+const {
+    Circle,
+    Square,
+    Triangle
+} = require("./lib/shapes.js");
 const fs = require("fs");
 
 let questions = [{
-    type: 'input',
-    message: 'Enter any text (max 3 characters):',
-    name: 'text',
-    validate: function(input) {
-        if (input.length > 3) {
-            return 'Logo text length cannot be greater than 3 characters'
+        type: 'input',
+        message: 'Enter any text (max 3 characters):',
+        name: 'text',
+        validate: function (input) {
+            if (input.length > 3) {
+                return 'Logo text length cannot be greater than 3 characters'
+            }
+            return true;
         }
-        return true;
-    }
-},
-{
-    type: 'input',
-    message: 'What should your text color be? (Enter color keyword or hexadecimal number)',
-    name: 'textColor',
-},
-{
-    type: 'list',
-    message: 'Which shape do you prefer?',
-    name: 'shape',
-    choices: ['Triangle', 'Circle', 'Square']
-},
-{
-    type: 'input',
-    message: 'What color should your shape be?',
-    name: 'shapeColor',
-},
+    },
+    {
+        type: 'input',
+        message: 'What should your text color be? (Enter color keyword or hexadecimal number)',
+        name: 'textColor',
+    },
+    {
+        type: 'list',
+        message: 'Which shape do you prefer?',
+        name: 'shape',
+        choices: ['Triangle', 'Circle', 'Square']
+    },
+    {
+        type: 'input',
+        message: 'What color should your shape be?',
+        name: 'shapeColor',
+    },
 ];
 
 async function init() {
@@ -45,24 +49,24 @@ function generateSvgLogo(data) {
     switch (data.shape) {
         case "Triangle":
             svgShape = new Triangle(data.text, data.textColor, data.shapeColor);
-          break;
+            break;
         case "Circle":
             svgShape = new Circle(data.text, data.textColor, data.shapeColor);
-          break;
+            break;
         case "Square":
             svgShape = new Square(data.text, data.textColor, data.shapeColor);
-          break;
-      }
-    
+            break;
+    }
+
     // Call the render() method of the svgShape object to generate the logoSpecs variable
     const logoSpecs = svgShape.render();
-    
+
     // Save the SVG string to a file named "logo.svg"
     fs.writeFile("./examples/logo.svg", logoSpecs, function (err) {
         if (err) {
-        console.error(err);
+            console.error(err);
         } else {
-        console.log("Generated logo.svg");
+            console.log("Generated logo.svg");
         }
     });
 }
