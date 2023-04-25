@@ -1,5 +1,5 @@
 const inquirer = require("inquirer");
-
+const { Circle, Square, Triangle } = require("./lib/shapes.js");
 
 let questions = [{
     type: 'input',
@@ -15,7 +15,7 @@ let questions = [{
 {
     type: 'input',
     message: 'What should your text color be? (Enter color keyword or hexadecimal number)',
-    name: 'txtcolor',
+    name: 'textColor',
 },
 {
     type: 'list',
@@ -26,7 +26,7 @@ let questions = [{
 {
     type: 'input',
     message: 'What color should your shape be?',
-    name: 'shpcolor',
+    name: 'shapeColor',
 },
 ];
 
@@ -36,6 +36,22 @@ async function init() {
 
     const answers = await inquirer.prompt(questions);
     console.log(answers);
+    generateSvgLogo(answers);
+}
+
+function generateSvgLogo(data) {
+    let svgShape;
+    switch (data.shape) {
+        case "Triangle":
+            svgShape = new Triangle(data.text, data.textColor, data.shapeColor);
+          break;
+        case "Circle":
+            svgShape = new Circle(data.text, data.textColor, data.shapeColor);
+          break;
+        case "Square":
+            svgShape = new Square(data.text, data.textColor, data.shapeColor);
+          break;
+      }
 }
 
 init();
