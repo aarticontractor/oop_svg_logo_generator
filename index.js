@@ -1,5 +1,6 @@
 const inquirer = require("inquirer");
 const { Circle, Square, Triangle } = require("./lib/shapes.js");
+const fs = require("fs");
 
 let questions = [{
     type: 'input',
@@ -52,6 +53,19 @@ function generateSvgLogo(data) {
             svgShape = new Square(data.text, data.textColor, data.shapeColor);
           break;
       }
+    
+    // Call the render() method of the svgShape object to generate the logoSpecs variable
+    const logoSpecs = svgShape.render();
+    
+    // Save the SVG string to a file named "logo.svg"
+    fs.writeFile("./examples/logo.svg", logoSpecs, function (err) {
+        if (err) {
+        console.error(err);
+        } else {
+        console.log("Generated logo.svg");
+        }
+    });
 }
+
 
 init();
